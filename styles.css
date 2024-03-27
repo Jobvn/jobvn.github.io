@@ -26,7 +26,7 @@
     text-align: center;
     font-family: 'LTS';
     color: #ffffff; /* Color of the font */
-    font-size: 2vw;
+    font-size: 1vw;
   }
 
   video {
@@ -52,6 +52,6 @@
 }
   .image-button img {
     display: block;
-    width: 20vw;
+    width: 10vw;
     max-height: auto;
 }
