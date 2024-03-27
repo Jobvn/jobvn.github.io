@@ -22,11 +22,12 @@
   /* Basic styles */
   body {
     margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    padding-left: 10%; /* Remove default padding */
+    padding-right: 10%;
     text-align: center;
     font-family: 'LTS';
     color: #ffffff; /* Color of the font */
-    font-size: 1vw;
+    font-size: 2vw;
   }
 
   video {
@@ -43,7 +44,7 @@
   }
   
   header img {
-    max-width: 8%;
+    max-width: 20%;
     height: auto;
   }
   .button-container {
@@ -52,6 +53,6 @@
 }
   .image-button img {
     display: block;
-    width: 10vw;
+    width: 40vw;
     max-height: auto;
 }
