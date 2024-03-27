@@ -37,6 +37,8 @@
     margin: 0 auto;
     margin-bottom: 20px;
   }
+
+  
   
   header {
     text-align: center;
@@ -57,4 +59,23 @@
     max-height: auto;
     padding-top: 10px;
     padding-bottom: 5%;
+}
+
+
+@media only screen and (min-width: 1024px) {
+    /* Special rules for even larger devices */
+    header img {
+        max-width: 5%; /* Increase logo size further for very large devices */
+    }
+
+    body {
+        font-size: 20px; /* Increase font size further for very large devices */
+    }
+    .image-button img {
+        display: block;
+        width: 10vw;
+        max-height: auto;
+        padding-top: 10px;
+        padding-bottom: 5%;
+    }
 }
