@@ -13,6 +13,7 @@
     background-size: cover;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
+    
   }
   
   /* Define the custom font */
@@ -32,6 +33,7 @@
     font-size: 2vw;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
+    
   }
 
   video {
@@ -50,7 +52,7 @@
   }
   
   header img {
-    max-width: 20%;
+    max-width: 30%;
     height: auto;
   }
   .button-container {
@@ -69,7 +71,7 @@
 @media only screen and (min-width: 1024px) {
     /* Special rules for even larger devices */
     header img {
-        max-width: 5%; /* Increase logo size further for very large devices */
+        max-width: 10%; /* Increase logo size further for very large devices */
     }
 
     body {
@@ -93,4 +95,16 @@
     .image-button:active img {
         opacity: 1; /* Set opacity to normal when clicked */
     }
+}
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Images/THLOGOWHITE.png'); /* Replace 'background-image.jpg' with your image */
+    background-size: 70ch;
+    background-position: center;
+    opacity: 0.1; /* Set transparency level */
+    z-index: -1; /* Ensure it's behind all other content except the background */
 }
