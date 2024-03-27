@@ -1,0 +1,57 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html { 
+    background: url(Images/BACKGROUND.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  /* Define the custom font */
+  @font-face {
+    font-family: 'LTS';
+    src: url("Fonts/UniversLTS.otf") format('opentype');
+  }
+  
+  /* Basic styles */
+  body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    text-align: center;
+    font-family: 'LTS';
+    color: #ffffff; /* Color of the font */
+    font-size: 2vw;
+  }
+
+  video {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  
+  header {
+    text-align: center;
+    padding: 0; /* Adjust padding as needed */
+  }
+  
+  header img {
+    max-width: 8%;
+    height: auto;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+}
+  .image-button img {
+    display: block;
+    width: 20vw;
+    max-height: auto;
+}
