@@ -55,4 +55,6 @@
     display: block;
     width: 40vw;
     max-height: auto;
+    padding-top: 10px;
+    padding-bottom: 5%;
 }
