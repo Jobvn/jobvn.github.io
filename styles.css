@@ -28,6 +28,8 @@
     font-family: 'LTS';
     color: #ffffff; /* Color of the font */
     font-size: 2vw;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
   }
 
   video {
