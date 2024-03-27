@@ -61,6 +61,17 @@
     max-height: auto;
     padding-top: 10px;
     padding-bottom: 5%;
+    opacity: 0.7; /* Set initial opacity to make it more transparent */
+    transition: opacity 0.3s ease; /* Add transition effect */
+
+    .image-button:hover img {
+        opacity: 1; /* Set opacity to normal on hover */
+    }
+    
+    /* Change opacity back to normal when clicked */
+    .image-button:active img {
+        opacity: 1; /* Set opacity to normal when clicked */
+    }
 }
 
 
@@ -79,5 +90,16 @@
         max-height: auto;
         padding-top: 10px;
         padding-bottom: 5%;
+        opacity: 0.7; /* Set initial opacity to make it more transparent */
+        transition: opacity 0.3s ease; /* Add transition effect */
+    }
+
+    .image-button:hover img {
+        opacity: 1; /* Set opacity to normal on hover */
+    }
+    
+    /* Change opacity back to normal when clicked */
+    .image-button:active img {
+        opacity: 1; /* Set opacity to normal when clicked */
     }
 }
