@@ -11,6 +11,8 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
   }
   
   /* Define the custom font */
