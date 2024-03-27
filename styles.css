@@ -109,3 +109,22 @@
     opacity: 0.1; /* Set transparency level */
     z-index: -1; /* Ensure it's behind all other content except the background */
 }
+/* Style for icon container */
+.icon-container {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    z-index: 2; /* Ensure it's above the video */
+}
+
+/* Style for icon links */
+.icon-link {
+    margin: 0 10px; /* Adjust the space between the icons */
+}
+
+.icon-link img {
+    width: 50px; /* Adjust the size of the icons */
+}
