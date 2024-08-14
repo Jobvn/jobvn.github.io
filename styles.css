@@ -1,0 +1,130 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html { 
+    background: black; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    
+  }
+  
+  /* Define the custom font */
+  @font-face {
+    font-family: 'LTS';
+    src: url("Fonts/UniversLTS.otf") format('opentype');
+  }
+  
+  /* Basic styles */
+  body {
+    margin: 0; /* Remove default margin */
+    padding-left: 10%; /* Remove default padding */
+    padding-right: 10%;
+    text-align: center;
+    font-family: 'LTS';
+    color: #ffffff; /* Color of the font */
+    font-size: 2vw;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    
+  }
+
+  video {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+  
+  
+  header {
+    text-align: center;
+    padding: 0; /* Adjust padding as needed */
+  }
+  
+  header img {
+    max-width: 30%;
+    height: auto;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+}
+  .image-button img {
+    display: block;
+    width: 40vw;
+    max-height: auto;
+    padding-top: 10px;
+    padding-bottom: 5%;
+}
+
+
+@media only screen and (min-width: 1024px) {
+    /* Special rules for even larger devices */
+    header img {
+        max-width: 10%; /* Increase logo size further for very large devices */
+    }
+
+    body {
+        font-size: 15px; /* Increase font size further for very large devices */
+    }
+    .image-button img {
+        display: block;
+        width: 10vw;
+        max-height: auto;
+        padding-top: 10px;
+        padding-bottom: 5%;
+        opacity: 0.7; /* Set initial opacity to make it more transparent */
+        transition: opacity 0.3s ease; /* Add transition effect */
+    }
+
+    .image-button:hover img {
+        opacity: 1; /* Set opacity to normal on hover */
+    }
+    
+    /* Change opacity back to normal when clicked */
+    .image-button:active img {
+        opacity: 1; /* Set opacity to normal when clicked */
+    }
+}
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Images/spinning.gif'); /* Replace 'background-image.jpg' with your image */
+    background-size: 90ch;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* Set transparency level */
+    z-index: -1; /* Ensure it's behind all other content except the background */
+}
+/* Style for icon container */
+.icon-container {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    z-index: 2; /* Ensure it's above the video */
+}
+
+/* Style for icon links */
+.icon-link {
+    margin: 0 10px; /* Adjust the space between the icons */
+}
+
+.icon-link img {
+    width: 50px; /* Adjust the size of the icons */
+}
