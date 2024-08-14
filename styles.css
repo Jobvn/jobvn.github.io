@@ -6,7 +6,7 @@
   }
 
   html { 
-    background: url(Images/BACKGROUND.png) no-repeat center center fixed; 
+    background: black; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -102,8 +102,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('Images/THLOGOWHITE.png'); /* Replace 'background-image.jpg' with your image */
-    background-size: 70ch;
+    background-image: url('Images/spinning.gif'); /* Replace 'background-image.jpg' with your image */
+    background-size: 90ch;
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.1; /* Set transparency level */
