@@ -2,45 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-  <title>Osu Rhythms</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Asset Tag Scanner</title>
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Fast camera barcode reader -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #reader {
+      width: 100%;
+      max-width: 480px;
+    }
+    .guide {
+      margin-top: 18px;
+      font-size: 15px;
+      color: #bbb;
+      text-align: center;
+      padding: 0 10px;
+    }
+  </style>
 </head>
 <body>
+  <div id="reader"></div>
+  <div class="guide">Point camera at the Code 128 barcode</div>
 
-  <!-- Background Video -->
-  <video autoplay muted loop class="background-video">
-    <source src="Videos/background.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
 
-  <div class="background-image"></div>
-  <header>
-    <img src="Images/spinning.gif" alt="Logo">
-  </header>
-  <h1>
-    VARUNA <br>
-    SHE/HER<br>
-    LOCUS ERROR<br>
-    EARWAX
-  </h1>
-  <div class="icon-container">
-    <!-- Instagram icon link -->
-    <a href="https://www.instagram.com/osu.rhythms/" class="icon-link" target="_blank">
-      <img src="Images/instalogo.png" alt="Instagram Icon">
-    </a>
+    const scanner = new Html5Qrcode("reader");
 
-    <!-- Second icon link -->
-    <a href="https://soundcloud.com/osu-rhythms" class="icon-link" target="_blank">
-      <img src="Images/scicon.png" alt="Second Icon">
-    </a>
-
-  </div>
-  <div class="button-container">
-    <!-- Button made of an image -->
-    <a href="https://shop.eventix.io/3da43fa6-800c-11ed-aa54-6a57c78572ab/tickets?shop_code=ua324uxx" class="image-button" target="_blank">
-      <img src="Images/Tickets.png" alt="Button">
-    </a>
-  </div>
+    scanner.start(
+      { facingMode: "environment" },
+      {
+        fps: 20,
+        qrbox: { width: 300, height: 120 }, // Wide box tailored for horizontal 1D barcodes
+        formatsToSupport: [ Html5QrcodeSupportedFormats.CODE_128 ]
+      },
+      (decodedText) => {
+        // Haptic buzz on phone when barcode is detected
+        if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred("success");
+        scanner.stop().then(() => {
+          // Closes popup and sends the tag string directly into the Telegram chat
+          tg.sendData(decodedText.trim());
+        });
+      },
+      (errorMessage) => {
+        // Live search in progress
+      }
+    ).catch(err => {
+      document.body.innerHTML = `<div style="padding:20px;text-align:center;">Camera error: ${err}</div>`;
+    });
+  </script>
 </body>
 </html>
