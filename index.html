@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Asset Tag Scanner</title>
-  <!-- Telegram WebApp SDK -->
+  <title>Asset Scanner</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- Fast camera barcode reader -->
   <script src="https://unpkg.com/html5-qrcode"></script>
   <style>
     * { box-sizing: border-box; }
@@ -24,20 +22,19 @@
     }
     #reader {
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
     }
     .guide {
-      margin-top: 18px;
-      font-size: 15px;
+      margin-top: 15px;
+      font-size: 14px;
       color: #bbb;
       text-align: center;
-      padding: 0 10px;
     }
   </style>
 </head>
 <body>
   <div id="reader"></div>
-  <div class="guide">Point camera at the Code 128 barcode</div>
+  <div class="guide">Align the barcode anywhere in the box</div>
 
   <script>
     const tg = window.Telegram.WebApp;
@@ -46,25 +43,48 @@
 
     const scanner = new Html5Qrcode("reader");
 
+    // Dynamic scanning box: 85% width, slim height for 1D barcodes
+    const qrboxFunction = (viewfinderWidth, viewfinderHeight) => {
+      return {
+        width: Math.floor(viewfinderWidth * 0.85),
+        height: Math.floor(viewfinderHeight * 0.35)
+      };
+    };
+
     scanner.start(
-      { facingMode: "environment" },
+      {
+        facingMode: "environment",
+        // Force high resolution and continuous autofocus
+        width: { ideal: 1920, min: 1280 },
+        height: { ideal: 1080, min: 720 },
+        focusMode: "continuous"
+      },
       {
         fps: 20,
-        qrbox: { width: 300, height: 120 }, // Wide box tailored for horizontal 1D barcodes
+        qrbox: qrboxFunction,
         formatsToSupport: [ Html5QrcodeSupportedFormats.CODE_128 ]
       },
       (decodedText) => {
-        // Haptic buzz on phone when barcode is detected
         if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred("success");
         scanner.stop().then(() => {
-          // Closes popup and sends the tag string directly into the Telegram chat
           tg.sendData(decodedText.trim());
         });
       },
-      (errorMessage) => {
-        // Live search in progress
+      (errorMessage) => {}
+    ).then(() => {
+      // Apply 2x digital/optical zoom if the device camera supports it
+      const video = document.querySelector("#reader video");
+      if (video && video.srcObject) {
+        const [track] = video.srcObject.getVideoTracks();
+        if (track && track.getCapabilities) {
+          const caps = track.getCapabilities();
+          if (caps.zoom) {
+            const targetZoom = Math.min(2.0, caps.zoom.max);
+            track.applyConstraints({ advanced: [{ zoom: targetZoom }] }).catch(() => {});
+          }
+        }
       }
-    ).catch(err => {
+    }).catch(err => {
       document.body.innerHTML = `<div style="padding:20px;text-align:center;">Camera error: ${err}</div>`;
     });
   </script>
