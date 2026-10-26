@@ -22,7 +22,7 @@
     }
     #reader {
       width: 100%;
-      max-width: 500px;
+      max-width: 480px;
     }
     .guide {
       margin-top: 15px;
@@ -34,16 +34,20 @@
 </head>
 <body>
   <div id="reader"></div>
-  <div class="guide">Align the barcode anywhere in the box</div>
+  <div class="guide">Align the barcode in the frame</div>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
 
-    const scanner = new Html5Qrcode("reader");
+    // Limit detection specifically to Code 128
+    const scanner = new Html5Qrcode("reader", {
+      formatsToSupport: [ Html5QrcodeSupportedFormats.CODE_128 ],
+      verbose: false
+    });
 
-    // Dynamic scanning box: 85% width, slim height for 1D barcodes
+    // Dynamic scanning box: 85% width, slim height tailored for 1D barcodes
     const qrboxFunction = (viewfinderWidth, viewfinderHeight) => {
       return {
         width: Math.floor(viewfinderWidth * 0.85),
@@ -52,17 +56,15 @@
     };
 
     scanner.start(
-      {
-        facingMode: "environment",
-        // Force high resolution and continuous autofocus
-        width: { ideal: 1920, min: 1280 },
-        height: { ideal: 1080, min: 720 },
-        focusMode: "continuous"
-      },
+      { facingMode: "environment" }, // Exactly 1 key here
       {
         fps: 20,
         qrbox: qrboxFunction,
-        formatsToSupport: [ Html5QrcodeSupportedFormats.CODE_128 ]
+        videoConstraints: {
+          facingMode: "environment",
+          width: { ideal: 1920, min: 1280 },
+          height: { ideal: 1080, min: 720 }
+        }
       },
       (decodedText) => {
         if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred("success");
@@ -71,20 +73,7 @@
         });
       },
       (errorMessage) => {}
-    ).then(() => {
-      // Apply 2x digital/optical zoom if the device camera supports it
-      const video = document.querySelector("#reader video");
-      if (video && video.srcObject) {
-        const [track] = video.srcObject.getVideoTracks();
-        if (track && track.getCapabilities) {
-          const caps = track.getCapabilities();
-          if (caps.zoom) {
-            const targetZoom = Math.min(2.0, caps.zoom.max);
-            track.applyConstraints({ advanced: [{ zoom: targetZoom }] }).catch(() => {});
-          }
-        }
-      }
-    }).catch(err => {
+    ).catch(err => {
       document.body.innerHTML = `<div style="padding:20px;text-align:center;">Camera error: ${err}</div>`;
     });
   </script>
